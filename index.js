@@ -18,7 +18,7 @@ app.use(express.static('dist'))
 
 app.get('/info', (req, res) => {
   const date = new Date()
-  Person.find({}).then(result => 
+  Person.find({}).then(result =>
     res.send(`<p>Phonebook has info for ${result.length} people</p>` +
     `<p>${date}`))
 
@@ -26,7 +26,7 @@ app.get('/info', (req, res) => {
 
 app.get('/api/persons', (req, res) => {
   Person.find({}).then(result => res.json(result))
-  
+
 })
 
 
@@ -51,15 +51,15 @@ app.delete('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.put('/api/persons/:id', (request, response, next) =>{
-  const {name, number} = request.body
+app.put('/api/persons/:id', (request, response, next) => {
+  const { name, number } = request.body
 
 
   Person.findByIdAndUpdate(
-    request.params.id, 
-    {name, number}, 
+    request.params.id,
+    { name, number },
     { new: true, runValidators: true, context: 'query' }
-    )
+  )
     .then(updatedPerson => {
       response.json(updatedPerson)
     })
@@ -69,7 +69,7 @@ app.put('/api/persons/:id', (request, response, next) =>{
 
 
 app.post('/api/persons', (request, response, next) => {
-const body = request.body
+  const body = request.body
 
   //const id = Math.floor(Math.random() * 1000)
   const person = new Person({
